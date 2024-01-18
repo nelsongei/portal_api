@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendOtpMail;
 use App\Models\Otp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OtpController extends Controller
 {
@@ -30,6 +32,21 @@ class OtpController extends Controller
         $user = User::where('email', $email)->first();
         $verificationCode = $this->generateOtp($email);
         $otp = $verificationCode->otp;
-        return response()->json(['user'=>$user,'otp'=>$otp,'messege'=>'OTP Generated SUccessfully, Check Your Email'], 200);
+        $data = [
+            'otp'=>$otp
+        ];
+        $this->sendMail($user->email,$data);
+        return response()->json(['user'=>$user,'otp'=>$otp,'messege'=>'OTP Generated Successfully, Check Your Email'], 200);
+    }
+    public function sendMail($toMail,$data){
+        try{
+            Mail::to($toMail)->send(new SendOtpMail($data));
+            return response([
+                'message'=>'Mail send successfully'
+            ]);
+        }
+        catch(\Exception $e)
+        {
+        }
     }
 }
