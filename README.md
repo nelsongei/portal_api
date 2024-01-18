@@ -9,3 +9,25 @@
 
 ## Portal Api
 
+When setting up the Application make sure to add the following fields on your .env
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+<b>How to install<b>
+<ul>
+    <li>Composer Install</li>
+    <li>cp .env-example .env</li>
+    <li>php artisan key:generate</li>
+    <li>php artisan migrate</li>
+    <li>php artisan db:seed</li>
+    <li>npm install</li>
+    <li>php artisan serve</li>
+</ul>
+
