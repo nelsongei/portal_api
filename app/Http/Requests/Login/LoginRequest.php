@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Register;
+namespace App\Http\Requests\Login;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             //
-            'name'=>['required','string','min:5'],
-            'email'=>['required','email','unique:users'],
-            'phone'=>['required','unique:users'],
+            'email'=>['required','email'],
         ];
     }
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param  Validator  $validator
-     * @return void
-     */
     protected function failedValidation(Validator $validator)
     {
         throw new \Illuminate\Validation\ValidationException($validator, $this->response($validator));
