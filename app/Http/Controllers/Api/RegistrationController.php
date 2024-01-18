@@ -25,7 +25,7 @@ class RegistrationController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            return response(['errors'=>$e->getMessage()]);
         }
     }
 }

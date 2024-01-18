@@ -30,6 +30,6 @@ class OtpController extends Controller
         $user = User::where('email', $email)->first();
         $verificationCode = $this->generateOtp($email);
         $otp = $verificationCode->otp;
-        return response()->json(['user'=>$user,'otp'=>$otp], 200);
+        return response()->json(['user'=>$user,'otp'=>$otp,'messege'=>'OTP Generated SUccessfully, Check Your Email'], 200);
     }
 }
